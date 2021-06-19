@@ -1,0 +1,43 @@
+//Файл Свод маршрутизации
+function TSettingsForm.CheckSvodCorrect:boolean;
+begin
+//Возвращает значение ПРАВДА
+result:=true;
+//Если путь к файлу Свод маршрутизации не корректный
+   if not FileExists(Svodedit.Text) then
+    begin
+      Svodedit.Color:=clred;//Помечаем поле ввода
+      result:=false; 		//Возвращает значение ЛОЖЬ
+    end
+  else Svodedit.Color:=clWindow;//Если путь корректный снимаем пометку с поля ввода
+end;
+
+//Путь к рабочей папке
+function TSettingsForm.CheckWorkDir(isNet:boolean):boolean;
+begin
+ if isNet then
+  begin
+  if workdiredit.text='' then
+     begin
+      workdiredit.Color:=clred;
+      result:=false;
+     end
+    else  workdiredit.Color:=clWindow;
+   end
+    else begin
+      if not DirectoryExists(workdiredit.text) then
+       begin
+         workdiredit.Color:=clred;
+         result:=false;
+        end
+          else workdiredit.Color:=clWindow;
+    end;
+//Строка подключение
+ 	
+	ADOConnection.Close;
+      ADOConnection.ConnectionString:= ConnStrTxt;
+        try
+          ADoConnection.Open;
+		 except result:=false;
+		 
+		 

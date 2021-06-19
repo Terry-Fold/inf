@@ -1,0 +1,112 @@
+function TSettingsForm.CheckCorrect(isNet:boolean):boolean;
+begin
+result:=true;
+//Путь к файлу Свод маршрутизации
+   if not FileExists(Svodedit.Text) then
+    begin
+      Svodedit.Color:=clred;
+      result:=false;
+    end
+  else Svodedit.Color:=clWindow;
+//Путь к рабочей папке
+ if isNet then
+  begin
+  if workdiredit.text='' then
+     begin
+      workdiredit.Color:=clred;
+      result:=false;
+     end
+    else  workdiredit.Color:=clWindow;
+   end
+    else begin
+      if not DirectoryExists(workdiredit.text) then
+       begin
+         workdiredit.Color:=clred;
+         result:=false;
+        end
+          else workdiredit.Color:=clWindow;
+    end;
+ //Сетевой путь к рабочей папке (если используется)
+   if netwdcheck.Checked then
+    begin
+     if not DirectoryExists(workdirnetedit.text) then
+      begin
+       workdirnetedit.Color:=clred;
+      result:=false;
+      end
+     else workdirnetedit.Color:=clWindow;
+    end;
+//Переменные текстов
+  //Имя
+   if nameedit.text='' then
+      begin
+        nameedit.Color:=clred;
+        result:=false;
+      end
+        else nameedit.Color:=clWindow;
+  //Телефон
+   if phoneedit.text='' then
+      begin
+        phoneedit.Color:=clred;
+        result:=false;
+      end
+        else phoneedit.Color:=clWindow;
+  //Обращение
+   if respedit.text='' then
+      begin
+        respedit.Color:=clred;
+        result:=false;
+      end
+        else respedit.Color:=clWindow;
+ //Текст СМС
+  //Диспы
+   if smsdisptext.Lines.Count=0 then
+    begin
+      smsdisptext.color := clred;
+      result:=false;
+    end
+      else smsdisptext.color:=clWindow;
+  //Профы
+   if smsproftext.Lines.Count=0 then
+    begin
+      smsproftext.color := clred;
+      result:=false;
+    end
+      else smsproftext.color:=clWindow;
+  //ДиспНабы
+   if smsdispnabtext.Lines.Count=0 then
+    begin
+      smsdispnabtext.color := clred;
+      result:=false;
+    end
+      else smsdispnabtext.color:=clWindow;
+//Текст Viber
+ //Диспы
+  if viberdisptext.Lines.Count=0 then
+    begin
+      viberdisptext.color := clred;
+      result:=false;
+    end
+      else viberdisptext.color:=clWindow;
+ //Профы
+   if viberproftext.Lines.Count=0 then
+    begin
+      viberproftext.color := clred;
+      result:=false;
+    end
+      else viberproftext.color:=clWindow;
+ //ДиспНабы
+   if viberdispnabtext.Lines.Count=0 then
+    begin
+      viberdispnabtext.color := clred;
+      result:=false;
+    end
+      else viberdispnabtext.color:=clWindow;
+ //Строка подключение
+   if not MainForm.CheckDBConn then
+      begin
+        ConnStrTxt.Color:=clred;
+        result:=false;
+      end
+        else ConnStrTxt.Color:=clWindow;
+end;
